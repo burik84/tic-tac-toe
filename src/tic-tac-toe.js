@@ -23,13 +23,12 @@ class TicTacToe {
   }
 
   isFinished() {
-    this.noMoreTurns();
     this.getWinner();
-    console.log(this.winner, this.isMoreTurns);
-    if(this.isMoreTurns===true&&this.winner==true){
-        this.isDraw()
+    this.noMoreTurns();
+    if (this.isMoreTurns && !this.winner) {
+      this.isDraw();
     }
-    return this.winner
+    return this.winner;
   }
 
   getWinner() {
@@ -104,9 +103,9 @@ class TicTacToe {
   }
 
   isDraw() {
-      if (this.isMoreTurns&&!this.winner) {
-        this.drow=true
-      }
+    if (this.isMoreTurns && !this.winner) {
+      this.drow = true;
+    }
     return this.drow;
   }
 
