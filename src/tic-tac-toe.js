@@ -4,7 +4,7 @@ class TicTacToe {
     this.field = new Array(3).fill(null).map(() => new Array(3).fill(null));
     this.drow = false;
     this.winner = null;
-    this.isMoreTurns = true;
+    this.isMoreTurns = false;
   }
 
   getCurrentPlayerSymbol() {
@@ -25,11 +25,11 @@ class TicTacToe {
   isFinished() {
     this.noMoreTurns();
     this.getWinner();
-    if (!this.isMoreTurns || this.winner) {
-      this.drow = this.winner === false ? true : false;
-      return true;
+    console.log(this.winner, this.isMoreTurns);
+    if(this.isMoreTurns===true&&this.winner==true){
+        this.isDraw()
     }
-    return false;
+    return this.winner
   }
 
   getWinner() {
@@ -92,11 +92,11 @@ class TicTacToe {
   }
 
   noMoreTurns() {
-    this.isMoreTurns = false;
+    this.isMoreTurns = true;
     this.field.forEach((row) => {
       row.forEach((column) => {
         if (column === null) {
-          this.isMoreTurns = true;
+          this.isMoreTurns = false;
         }
       });
     });
@@ -104,6 +104,9 @@ class TicTacToe {
   }
 
   isDraw() {
+      if (this.isMoreTurns&&!this.winner) {
+        this.drow=true
+      }
     return this.drow;
   }
 
