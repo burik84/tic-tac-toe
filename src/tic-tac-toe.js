@@ -1,23 +1,22 @@
 class TicTacToe {
     constructor() {
         this.step='x';
-        this.field=(new Array(3)).fill(null).map(()=>new Array(3).fill(''))
+        this.field=(new Array(3)).fill(null).map(()=>new Array(3).fill(null))
         this.drow=false;
         this.winner=false;
     }
 
     getCurrentPlayerSymbol() {
-        return this.step?'x':'o'
+        return this.step==='x'?'x':'o'
     }
 
     nextTurn(rowIndex, columnIndex) {
         console.log(rowIndex,columnIndex);
-        if (this.field[rowIndex][columnIndex]!=='') {
+        if (this.field[rowIndex][columnIndex]!==null) {
             return
         }else{
             const symbol=this.step
             this.field[rowIndex][columnIndex]=symbol
-            console.log('oh', symbol, rowIndex, columnIndex);
             this.step=symbol==='x'?'o':'x'
         }
         this.noMoreTurns()
@@ -36,7 +35,7 @@ class TicTacToe {
         let turns=false
         this.field.forEach(row=>{
             row.forEach((column)=>{
-                if(column===''){
+                if(column===null){
                     turns=true
                 }
             })
@@ -44,6 +43,7 @@ class TicTacToe {
         if(!turns){
             this.drow=this.winner===false?true:false;
         }
+        return !turns
     }
 
     isDraw() {
