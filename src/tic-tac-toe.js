@@ -12,23 +12,20 @@ class TicTacToe {
   }
 
   nextTurn(rowIndex, columnIndex) {
-    if (this.field[rowIndex][columnIndex] !== null) {
-      return;
+    if (this.field[rowIndex][columnIndex] === null) {
+      this.field[rowIndex][columnIndex] = this.getCurrentPlayerSymbol();
+      this.step = this.step === 'x' ? 'o' : 'x';
+      return true;
     }
-    const symbol = this.getCurrentPlayerSymbol();
-    this.field[rowIndex][columnIndex] = symbol;
-    if (!this.isFinished()) {
-      this.step = symbol === 'x' ? 'o' : 'x';
-    }
+    return false;
   }
 
   isFinished() {
     this.getWinner();
-    this.noMoreTurns();
-    if (this.isMoreTurns && !this.winner) {
+    if (this.noMoreTurns() && !this.winner) {
       this.isDraw();
     }
-    return this.winner||this.drow?true:false;
+    return this.winner || this.drow ? true : false;
   }
 
   getWinner() {
@@ -87,7 +84,8 @@ class TicTacToe {
         this.winner = this.step;
       }
     }
-    return this.winner;
+    if (this.winner === null) return null;
+    return this.winner === 'x' ? 'o' : 'x';
   }
 
   noMoreTurns() {
@@ -103,7 +101,7 @@ class TicTacToe {
   }
 
   isDraw() {
-    if (this.isMoreTurns && !this.winner) {
+    if (this.noMoreTurns() && this.getWinner() === null) {
       this.drow = true;
     }
     return this.drow;
